@@ -1,0 +1,24 @@
+[project]
+name = "ai-pulse"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+authors = [
+    { name = "vivekkattri", email = "wickedvivek1816@gmail.com" }
+]
+requires-python = ">=3.13"
+dependencies = [
+    "dotenv>=0.9.9",
+    "httpx>=0.28.1",
+    "psycopg[binary]>=3.3.6",
+    "pydantic>=2.14.2",
+    "python-dotenv>=1.2.4",
+    "pyyaml>=6.0.3",
+]
+
+[project.scripts]
+ai-pulse = "ai_pulse:main"
+
+[build-system]
+requires = ["uv_build>=0.12.23,<0.13.0"]
+build-backend = "uv_build"

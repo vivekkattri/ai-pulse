@@ -1,0 +1,8 @@
+# Settings for each data source. No secrets here: this file is committed to Git.
+hackernews:
+  base_url: https://hacker-news.firebaseio.com/v0
+  list_endpoint: newstories
+  max_items: 500
+  request_timeout_seconds: 10
+  pause_seconds: 0.05
+  max_retries: 3
