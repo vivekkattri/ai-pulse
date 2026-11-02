@@ -20,6 +20,16 @@ class HackerNewsConfig(BaseModel):
     max_retries: int = Field(ge=1)
 
 
+class ArxivConfig(BaseModel):
+    base_url: str
+    search_query: str
+    page_size: int = Field(gt=0, le=2000)
+    max_items: int = Field(gt=0)
+    request_timeout_seconds: float = Field(gt=0)
+    pause_seconds: float = Field(ge=3)
+    max_retries: int = Field(ge=1)
+
+
 def get_database_url() -> str:
     load_dotenv(PROJECT_ROOT / ".env")
     database_url = os.environ.get("DATABASE_URL")
@@ -30,7 +40,15 @@ def get_database_url() -> str:
     return database_url
 
 
-def load_hackernews_config() -> HackerNewsConfig:
+def load_sources() -> dict:
+    """Read config/sources.yaml and return it as a dict, one section per source."""
     with open(SOURCES_FILE, encoding="utf-8") as file:
-        sources = yaml.safe_load(file)
-    return HackerNewsConfig.model_validate(sources["hackernews"])
+        return yaml.safe_load(file)
+
+
+def load_hackernews_config() -> HackerNewsConfig:
+    return HackerNewsConfig.model_validate(load_sources()["hackernews"])
+
+
+def load_arxiv_config() -> ArxivConfig:
+    return ArxivConfig.model_validate(load_sources()["arxiv"])
